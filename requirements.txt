@@ -1,0 +1,30 @@
+[TODO ITEM]
+    - the todos are created as instances of todoItem class
+    - the todo class has following properties
+        - title
+        - description
+        - dueDate
+        - priority: defined by Eisenhower matrix values 1-2-3-4 (IU, INU, NIU, NINU)
+        - notes
+        - checkList
+    - the todo class needs to have following functionalities/methods
+        - we need to create an item -> not a method, done via creating an instance
+        - set its status finished (states could be extended in the future with "in progress/blocked/etc.")
+        - deleteing an item: 
+            deleting an item via JavaScript is not straight forward. One cannot do "delete obj" or obj.delete()
+            Workaround: set object to null, this way memory management will clean it up
+        - setting its priority: needs to set property priority
+        - adding notes: set content to notes property
+        - todo item needs to be linked to a project instance:
+            - this could be done by adding the todo item to the project instance OR 
+              by giving the todo item a project property and setting the property value to the selected project
+
+
+
+[PROJECT]  
+    - [CREATE PROJECT]: creating project instances of Project class
+    - [DELETE PROJECT]: deleting a project
+    - [SETTING PROJECT RANK/PRIORITY]: there will be multiple projects, a ranking or priority would be useful due to displaying the projects on the menu bar.
+    - [DEFAULT PROJECT]: when a new todo is created it should be added to a default project. 
+      From the default project it can be moved to any user selected project
+
