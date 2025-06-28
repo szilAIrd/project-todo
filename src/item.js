@@ -1,20 +1,31 @@
 import { prototype } from 'html-webpack-plugin';
-import {format} from './index.js'
+// import {format} from './index.js'
 
 class Todo{
-    constructor(title, description='', dueDate=undefined, priority=0, notes='', checkList){
+    constructor(title){
+        //  description, dueDate, priority, notes, checkList=[]
         this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.priority = priority;
-        this.notes = notes;
-        this.checkList = checkList;
-        this.statusFinished = false
+        this.description = '';
+        this.dueDate = ''
+        // dueDate;
+        this.priority = '' 
+        // priority;
+        this.notes = ''
+        // notes;
+        this.checkList =  ''
+        // checkList;
+        this.statusFinished = ''
+        // false
     }
 
     // createItem(){} creating 
 
     // deleteItem(){}
+    static createTodo(title){
+        
+        return new Todo(title)
+        
+    }
 
     setTodoStatus(){
         this.statusFinished = !this.statusFinished
@@ -44,4 +55,8 @@ class Todo{
     // copyItem(){}
 }
 
-export {Todo}
+// function createTodo(){
+//     return new Todo(title)
+// }
+
+export { Todo }

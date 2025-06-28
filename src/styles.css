@@ -1,0 +1,28 @@
+body{
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    margin: 0;
+}
+
+#sidebar{
+    background-color: rgb(214, 214, 214);
+    color: white;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: xx-large;
+    font-weight: 900;
+    padding-left: 20px;
+}
+
+#sidebar-title{
+
+}
+
+#add-todo-btn, #add-project-btn, #display-project-btn{
+    width: 64px;
+    height: 32px;
+    color: white;
+}
+

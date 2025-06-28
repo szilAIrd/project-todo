@@ -1,7 +1,22 @@
 import "./styles.css";
-import { todoItem } from "./item.js";
-import format from 'date-fns'
+import { Todo } from "./item.js";
+import {Project, defaultProject} from './project.js'
+import {Page} from './dom.js'
+// import format from 'date-fns'
 
-export {format}
+const mainPage = new Page()
+mainPage.initPage()
+
+// const todoItem = new Todo('mosas')
+// let ProjectDef = new Project('Default')
+
+// export {format}
+
+// console.log(todoItem)
+// console.log(ProjectDef)
+
+// ProjectDef.addTodo(todoItem)
+
+
 
 console.log("anzad")

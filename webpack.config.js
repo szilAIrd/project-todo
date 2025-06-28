@@ -20,6 +20,9 @@ module.exports = {
       template: "./src/template.html",
     }),
   ],
+  stats: {
+    warningsFilter: /html-webpack-plugin/,
+  },
   module: {
     rules: [
       {
@@ -36,4 +39,16 @@ module.exports = {
     //   },
     ],
   },
+  resolve: {
+    fallback: {
+      fs: false,
+      path: false,
+      os: false,
+      url: false,
+      http: false,
+      https: false,
+      util: false,
+      tty: false,
+      vm: false,
+    },},
 };
