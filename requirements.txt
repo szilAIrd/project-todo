@@ -28,3 +28,13 @@
     - [DEFAULT PROJECT]: when a new todo is created it should be added to a default project. 
       From the default project it can be moved to any user selected project
 
+[DOM]
+    -[PROJECT SELECTOR]: a project selector feature needs to be implemented. Use a select html element with the projects being the option sub elements.
+     The content of the selector button changes:
+        1) in page initializiation, when the exisitng projects from the local storage are loaded and 
+        2) when projects are added or deleted
+        Implement a function that takes care of the DOM handling. 
+        1) The function needs to take the projecs from the local storage
+        2) when a new project is created either the object can be used directly to create the dom element or the object needs to be storaged in the local storage
+        and from there it can be taken to implement the dom logic.
+

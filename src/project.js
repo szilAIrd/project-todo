@@ -1,11 +1,12 @@
 class Project {
     static all = []
+
     constructor(title){
         this.title = title;
         this.todos = []
         Project.all.push(this)
+        this.id = crypto.randomUUID()
     }
-
     static createProject(title){
 
         return new Project(title)
@@ -27,5 +28,6 @@ function createProject(){
 }
 
 let defaultProject = new Project('Default')
+// console.log(['The default project is', defaultProject])
 
 export { Project, defaultProject, createProject}

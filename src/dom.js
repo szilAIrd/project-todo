@@ -1,5 +1,6 @@
 import {Todo} from './item.js'
 import {Project,defaultProject,createProject} from './project.js'
+import {saveData,loadData} from './storage.js'
 
 class Page{
     body = document.body;
@@ -31,7 +32,11 @@ class Page{
                 defaultProject.addTodo(newTodo)
                 console.log(defaultProject)
             })
+        addTodoBtn.addEventListener('click',saveData(Project.all[0]))
+        // addTodoBtn.addEventListener('click',loadData(saveData(Project.all[0])))
+
         sidebar.appendChild(addTodoBtn)
+
 
         //  ADD NEW PROJECT
 
@@ -97,6 +102,15 @@ class DomTodo{
 
         
     // }
+}
+
+function displayProjectsSelector(){
+    const selectProjectBtn = document.getElementById('projects-select')
+    const addProject = document.createElement('option')
+    // addProject.id = 
+    addProject.value = 'new project'
+    addProject.textContent = 'new project'
+    selectProjectBtn.appendChild(addPRoject)
 }
 
 
