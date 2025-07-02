@@ -32,9 +32,6 @@ class Page{
                 defaultProject.addTodo(newTodo)
                 console.log(defaultProject)
             })
-        addTodoBtn.addEventListener('click',saveData(Project.all[0]))
-        // addTodoBtn.addEventListener('click',loadData(saveData(Project.all[0])))
-
         sidebar.appendChild(addTodoBtn)
 
 
@@ -53,6 +50,13 @@ class Page{
         })
         sidebar.appendChild(addProjectBtn)
 
+        // SAVE PROJECT
+        const saveProjectBtn = document.createElement('button')
+        saveProjectBtn.id  = 'save-project-btn'
+        saveProjectBtn.textContent = 'Save project'
+        saveProjectBtn.addEventListener('click',saveData(Project.all))
+        sidebar.appendChild(saveProjectBtn)
+
         // SELECT PROJECT
         const selectProjectBtn = document.createElement('select')
         selectProjectBtn.name = 'projects-select';
@@ -63,19 +67,20 @@ class Page{
             const exisitngProject = document.createElement('option')
             exisitngProject.value = element.title
             exisitngProject.textContent = element.title
+            if (element.title==='Default'){exisitngProject.selected = true}
             selectProjectBtn.appendChild(exisitngProject)})
+        selectProjectBtn.addEventListener('change', Page.displayProject)    
+        sidebar.appendChild(selectProjectBtn)
 
-        // sidebar.appendChild(selectProjectBtn)
         
         // selectProject
         
 
-        // DISPLAY PROJECT
-
-        const displayProjectBtn = document.createElement('button');
-        displayProjectBtn.id = 'display-project-btn';
-        displayProjectBtn.addEventListener('click', Page.displayProject)
-        sidebar.appendChild(displayProjectBtn)
+        // DISPLAY PROJECT    
+        // const displayProjectBtn = document.createElement('button');
+        // displayProjectBtn.id = 'display-project-btn';
+        // displayProjectBtn.addEventListener('click', Page.displayProject)
+        // sidebar.appendChild(displayProjectBtn)
         
 
     }
@@ -83,9 +88,16 @@ class Page{
     static displayProject(){
         // this.body
         const maincontent = document.getElementById('maincontent')
+        const selectProjectBtn = document.getElementById('projects-select')
+        if (maincontent.childElementCount>0){
+            const children = maincontent.children
+            maincontent.removeChild(children[0])
+        }
         const project = document.createElement('div')
         project.classList = 'project'
-        project.textContent = defaultProject.title
+        // get selectec Project object based on the select button
+        let selectedProject = Project.all.find((element) => element.title == selectProjectBtn.value)
+        project.textContent = selectedProject.title
         maincontent.appendChild(project)
         
 
@@ -113,5 +125,6 @@ function displayProjectsSelector(){
     selectProjectBtn.appendChild(addPRoject)
 }
 
+    // displayTodo
 
 export {DomTodo, Page}

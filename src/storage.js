@@ -2,26 +2,22 @@
 
 
 function saveData(project){
-    // convert data: use stringiy
-    let saveData = JSON.stringify(project)
-    console.log(saveData)
-
-    localStorage.setItem(`Project1`, saveData)
-    let transformedData = loadData(saveData)
-
-    let returnedData = localStorage.getItem(`Project1`)
-    console.log(['The returned data si',JSON.parse(returnedData)])
-
-    console.log(['The tranformed data is', transformedData.title])
-    return [saveData,transformedData]
-    // save data into local storage
+    localStorage.clear()
+    project.forEach(element => {
+        let saveData = JSON.stringify(element)
+        localStorage.setItem(element.title, saveData)   
+    });
 }
 
-function loadData(dataToLoad){
+function loadData(){
+    // Get data from localStorage
 
-    let loadedData = JSON.parse(localStorage.getItem(dataToLoad))
+    let loadedData = JSON.parse(localStorage.getItem())
+    
 
+    // Create Project object using the obtained data from localStorage
     console.log(loadedData)
+
     return loadedData
 }   
 

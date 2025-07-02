@@ -7,16 +7,4 @@ import {Page} from './dom.js'
 const mainPage = new Page()
 mainPage.initPage()
 
-// const todoItem = new Todo('mosas')
-// let ProjectDef = new Project('Default')
 
-// export {format}
-
-// console.log(todoItem)
-// console.log(ProjectDef)
-
-// ProjectDef.addTodo(todoItem)
-
-
-
-console.log("anzad")
