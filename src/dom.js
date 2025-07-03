@@ -1,4 +1,4 @@
-import {Todo} from './item.js'
+import {Todo} from './todo.js'
 import {Project,defaultProject,createProject} from './project.js'
 import {saveData,loadData} from './storage.js'
 
@@ -27,7 +27,7 @@ class Page{
         addTodoBtn.id = 'add-todo-btn';
         addTodoBtn.textContent = 'Add Todo'
         addTodoBtn.addEventListener('click', ()=> {
-                const newTodo = Todo.createTodo('fasza'); 
+                const newTodo = Todo.createTodo('new todo'); 
                 console.log(newTodo); 
                 defaultProject.addTodo(newTodo)
                 console.log(defaultProject)
@@ -98,6 +98,10 @@ class Page{
         // get selectec Project object based on the select button
         let selectedProject = Project.all.find((element) => element.title == selectProjectBtn.value)
         project.textContent = selectedProject.title
+        const todo = document.createElement('div')
+        todo.id = selectedProject.id;
+        todo.textContent = selectedProject.todos
+        project.appendChild(todo)
         maincontent.appendChild(project)
         
 

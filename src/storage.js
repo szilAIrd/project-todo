@@ -1,4 +1,4 @@
-
+import {Project} from './project.js'
 
 
 function saveData(project){
@@ -9,18 +9,34 @@ function saveData(project){
     });
 }
 
-function loadData(){
-    // Get data from localStorage
-
-    let loadedData = JSON.parse(localStorage.getItem())
+function loadProjectEntry(itemToLoad){
+    // input: localStorage.key(0) = 'Default'
+    // output: title, todos, id
+    // Get get which item from localStorage and return the values needed to create a Project object
+    // itemToLoad = 
+    let dataToLoad = JSON.parse(localStorage.getItem(itemToLoad));
     
+    return dataToLoad
+} 
 
-    // Create Project object using the obtained data from localStorage
-    console.log(loadedData)
+function loadData(){
+    for (let i=0;i<localStorage.length;i++){
+        // Iterate through the elements of localStorage and create objects
+        let dataToLoad = loadProjectEntry(localStorage.key(i))
+        //  create object
+        let title = dataToLoad.title
+        let project = Project.createProject(title)
+        project.todos = []
+        project.id = dataToLoad.id
+    }
+}
 
-    return loadedData
-}   
+function loadTodos(){
+    
+}
+
+loadData()
 
 
 
-export {saveData, loadData}
+export {saveData, loadProjectEntry}
