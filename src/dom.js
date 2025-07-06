@@ -1,5 +1,5 @@
 import {Todo} from './todo.js'
-import {Project,defaultProject,createProject} from './project.js'
+import {Project,defaultProject} from './project.js'
 import {saveData,loadData} from './storage.js'
 
 class Page{
@@ -40,14 +40,8 @@ class Page{
         const addProjectBtn = document.createElement('button')
         addProjectBtn.id  = 'add-project-btn'
         addProjectBtn.textContent = 'Add new project'
-        addProjectBtn.addEventListener('click',createProject)
-        addProjectBtn.addEventListener('click', ()=>{
-            const selectProjectBtn = document.getElementById('projects-select')
-            const newProject = document.createElement('option')
-            newProject.value = 'new project'
-            newProject.textContent = 'new project'
-            selectProjectBtn.appendChild(newProject)
-        })
+        addProjectBtn.addEventListener('click',Project.createProject('new project'))
+        // addProjectBtn.addEventListener('click', this.updateSelectOptions())
         sidebar.appendChild(addProjectBtn)
 
         // SAVE PROJECT
@@ -61,14 +55,17 @@ class Page{
         const selectProjectBtn = document.createElement('select')
         selectProjectBtn.name = 'projects-select';
         selectProjectBtn.id = 'projects-select';
-        let options = Project.all
-        console.log(options)
-        options.forEach((element)=> {
-            const exisitngProject = document.createElement('option')
-            exisitngProject.value = element.title
-            exisitngProject.textContent = element.title
-            if (element.title==='Default'){exisitngProject.selected = true}
-            selectProjectBtn.appendChild(exisitngProject)})
+        selectProjectBtn.addEventListener('click', this.updateSelectOptions)
+        // ('click', ()=>{
+            // let options = Project.all
+            // console.log(options)
+            // options.forEach((element)=> {
+                // const exisitngProject = document.createElement('option')
+                // exisitngProject.value = element.title
+                // exisitngProject.textContent = element.title
+                // if (element.title==='Default'){exisitngProject.selected = true}
+                // selectProjectBtn.appendChild(exisitngProject)})})
+        
         selectProjectBtn.addEventListener('change', Page.displayProject)    
         
         sidebar.appendChild(selectProjectBtn)
@@ -85,6 +82,25 @@ class Page{
         
 
     }
+
+    updateSelectOptions(){
+         let options = Project.all
+         const selectProjectBtn = document.getElementById('projects-select')
+         console.log(options)
+
+        while (selectProjectBtn.firstChild) {
+        selectProjectBtn.removeChild(selectProjectBtn.firstChild);
+        }
+
+        options.forEach((element)=> {
+        const exisitngProject = document.createElement('option')
+        exisitngProject.value = element.title
+        exisitngProject.textContent = element.title
+
+        if (element.title==='Default'){exisitngProject.selected = true}
+        selectProjectBtn.appendChild(exisitngProject)})
+    }
+
 
     static displayProject(){
         // this.body
