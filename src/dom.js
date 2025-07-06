@@ -70,6 +70,7 @@ class Page{
             if (element.title==='Default'){exisitngProject.selected = true}
             selectProjectBtn.appendChild(exisitngProject)})
         selectProjectBtn.addEventListener('change', Page.displayProject)    
+        
         sidebar.appendChild(selectProjectBtn)
 
         
@@ -89,26 +90,39 @@ class Page{
         // this.body
         const maincontent = document.getElementById('maincontent')
         const selectProjectBtn = document.getElementById('projects-select')
-        if (maincontent.childElementCount>0){
-            const children = maincontent.children
-            maincontent.removeChild(children[0])
-        }
+        Page.clearMainContent()
         const project = document.createElement('div')
+        project.setAttribute('type', 'text')
         project.classList = 'project'
         // get selectec Project object based on the select button
         let selectedProject = Project.all.find((element) => element.title == selectProjectBtn.value)
         project.textContent = selectedProject.title
-        const todo = document.createElement('div')
-        todo.id = selectedProject.id;
-        todo.textContent = selectedProject.todos
-        project.appendChild(todo)
-        maincontent.appendChild(project)
-        
+        project.addEventListener('dblclick', editProjectTitle)
+        maincontent.appendChild(project) 
+    }
 
-       
-        
+    static clearMainContent(){
+        const maincontent = document.getElementById('maincontent')
+        if (maincontent.childElementCount>0){
+            const children = maincontent.children
+            maincontent.removeChild(children[0])
+        }
     }
 }
+
+    
+
+// function displayTodo(todoItem, project){
+//     //  take one single todo from a project and add it to the dom
+//      let todoDom = document.createElement('div')
+//     // todo.id = project.id;
+//     // const
+//     let selectedProject = Project.all.find((element) => element.title == selectProjectBtn.value)
+
+//     todoDom.textContent = selectedProject.todos[0].title
+//     project.appendChild(todo)
+// }
+
 
 class DomTodo{
 
@@ -126,7 +140,36 @@ function displayProjectsSelector(){
     // addProject.id = 
     addProject.value = 'new project'
     addProject.textContent = 'new project'
-    selectProjectBtn.appendChild(addPRoject)
+    selectProjectBtn.appendChild(addProject)
+}
+
+function editProjectTitle(){
+    const maincontent = document.getElementById('maincontent')
+    let projectTitle = document.getElementsByClassName('project')[0]
+    projectTitle.style.display = 'none';
+    let currentProjectTitle = projectTitle.value;
+    let newProjectTitle = document.createElement('input')
+    newProjectTitle.id = 'editNameInput'
+    newProjectTitle.placeholder = projectTitle.textContent
+
+    newProjectTitle.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+        let oldTitle = document.getElementById('editNameInput').placeholder
+        projectTitle.textContent = newProjectTitle.value
+          const children = maincontent.children
+        //   Page.clearMainContent()
+        newProjectTitle.style.display = 'none'
+        projectTitle.style.display = ''
+        maincontent.appendChild(projectTitle)
+        console.log(Project.all)
+        Project.editProjectTitle(oldTitle, newProjectTitle.value)
+        console.log(Project.all)
+        newProjectTitle.remove()
+        }
+    })
+    // Page.clearMainContent()
+    
+    maincontent.appendChild(newProjectTitle)
 }
 
     // displayTodo

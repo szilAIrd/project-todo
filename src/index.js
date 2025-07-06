@@ -6,5 +6,6 @@ import {Page} from './dom.js'
 
 const mainPage = new Page()
 mainPage.initPage()
+Page.displayProject()
 
 

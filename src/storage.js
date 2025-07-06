@@ -3,7 +3,7 @@ import {Project} from './project.js'
 
 function saveData(project){
     localStorage.clear()
-    project.forEach(element => {
+    project.forEach((element) => {
         let saveData = JSON.stringify(element)
         localStorage.setItem(element.title, saveData)   
     });
@@ -31,9 +31,9 @@ function loadData(){
     }
 }
 
-function loadTodos(){
+// function loadTodos(){
     
-}
+// }
 
 loadData()
 
