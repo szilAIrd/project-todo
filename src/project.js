@@ -9,7 +9,10 @@ class Project {
     }
     static createProject(title){
         if ((Project.all.find((element)=>(element.title)==title))==undefined){
-            return new Project(title)
+            console.log(Project.all)
+            let newProject = new Project(title)
+            // return 
+            
         }
         else {
            console.log('Project name is taken')

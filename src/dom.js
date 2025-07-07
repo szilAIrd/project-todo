@@ -40,7 +40,7 @@ class Page{
         const addProjectBtn = document.createElement('button')
         addProjectBtn.id  = 'add-project-btn'
         addProjectBtn.textContent = 'Add new project'
-        addProjectBtn.addEventListener('click',Project.createProject('new project'))
+        addProjectBtn.addEventListener('click',()=>{Project.createProject('new project')})
         // addProjectBtn.addEventListener('click', this.updateSelectOptions())
         sidebar.appendChild(addProjectBtn)
 
@@ -65,8 +65,11 @@ class Page{
                 // exisitngProject.textContent = element.title
                 // if (element.title==='Default'){exisitngProject.selected = true}
                 // selectProjectBtn.appendChild(exisitngProject)})})
-        
-        selectProjectBtn.addEventListener('change', Page.displayProject)    
+        // if (element.title==='Default'){exisitngProject.selected = true}
+
+        selectProjectBtn.addEventListener('change', Page.displayProject) 
+        selectProjectBtn.addEventListener('change', (e)=>{console.log(e)}) 
+           
         
         sidebar.appendChild(selectProjectBtn)
 
@@ -97,7 +100,6 @@ class Page{
         exisitngProject.value = element.title
         exisitngProject.textContent = element.title
 
-        if (element.title==='Default'){exisitngProject.selected = true}
         selectProjectBtn.appendChild(exisitngProject)})
     }
 
