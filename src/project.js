@@ -1,3 +1,6 @@
+// import {Page} from './dom.js'
+// import {mainPage} from './index.js'
+
 class Project {
     static all = []
 
@@ -11,11 +14,21 @@ class Project {
         if ((Project.all.find((element)=>(element.title)==title))==undefined){
             console.log(Project.all)
             let newProject = new Project(title)
+            // Page.updateSelectOptions()
+            
             // return 
             
         }
         else {
            console.log('Project name is taken')
+        }
+    }
+
+    static deleteProject(title){
+        let projectID = (Project.all.find((element)=>(element.title)==title))
+        if (projectID!=undefined){
+            Project.all.splice(projectID,1)
+            console.log(Project.all)
         }
     }
 
@@ -43,7 +56,7 @@ function createProject(){
 
 let defaultProject = new Project('Default')
 // console.log(['The default project is', defaultProject])
-let Project1 = new Project('Project1')
+// let Project1 = new Project('Project1')
 
 
 export { Project, defaultProject, createProject}

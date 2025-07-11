@@ -6,7 +6,8 @@ import {Page} from './dom.js'
 
 const mainPage = new Page()
 mainPage.initPage()
-mainPage.updateSelectOptions()
+Page.updateSelectOptions()
 Page.displayProject()
 
 
+export {mainPage}

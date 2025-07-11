@@ -29,7 +29,15 @@ class Page{
         addTodoBtn.addEventListener('click', ()=> {
                 const newTodo = Todo.createTodo('new todo'); 
                 console.log(newTodo); 
-                defaultProject.addTodo(newTodo)
+                //  Add todo to currently displayed project
+                // Get name of the currently displayed project from DOM, i.e.'Default'
+                let selectedProject = document.getElementsByClassName('project')[0]
+                //  
+                let selectedProjectTitle = selectedProject.textContent
+                let selectedProjectIdx = Project.all.findIndex((element) => (element.title==selectedProjectTitle))
+                // Add todo to selecte project
+                Project.all[selectedProjectIdx]
+                // defaultProject.addTodo(newTodo)
                 console.log(defaultProject)
             })
         sidebar.appendChild(addTodoBtn)
@@ -41,34 +49,38 @@ class Page{
         addProjectBtn.id  = 'add-project-btn'
         addProjectBtn.textContent = 'Add new project'
         addProjectBtn.addEventListener('click',()=>{Project.createProject('new project')})
-        // addProjectBtn.addEventListener('click', this.updateSelectOptions())
+        addProjectBtn.addEventListener('click', Page.updateSelectOptions)
         sidebar.appendChild(addProjectBtn)
+
+        //  DELETE PROJECT
+
+        const deleteProjectBtn = document.createElement('button')
+        deleteProjectBtn.id  = 'add-project-btn'
+        deleteProjectBtn.textContent = 'Delete project'
+        // deleteProjectBtn.addEventListener('click',()=>{Project.deleteProject})
+        deleteProjectBtn.addEventListener('click',()=>{
+            let toBeDeleted = document.getElementsByClassName('project')[0]
+            Project.deleteProject(toBeDeleted.textContent)
+            Page.clearMainContent()
+        })
+        deleteProjectBtn.addEventListener('click', Page.updateSelectOptions)
+        sidebar.appendChild(deleteProjectBtn)
 
         // SAVE PROJECT
         const saveProjectBtn = document.createElement('button')
         saveProjectBtn.id  = 'save-project-btn'
-        saveProjectBtn.textContent = 'Save project'
-        saveProjectBtn.addEventListener('click',saveData(Project.all))
+        saveProjectBtn.textContent = 'Save projects'
+        saveProjectBtn.addEventListener('click',saveData)
         sidebar.appendChild(saveProjectBtn)
 
         // SELECT PROJECT
         const selectProjectBtn = document.createElement('select')
         selectProjectBtn.name = 'projects-select';
         selectProjectBtn.id = 'projects-select';
-        selectProjectBtn.addEventListener('click', this.updateSelectOptions)
-        // ('click', ()=>{
-            // let options = Project.all
-            // console.log(options)
-            // options.forEach((element)=> {
-                // const exisitngProject = document.createElement('option')
-                // exisitngProject.value = element.title
-                // exisitngProject.textContent = element.title
-                // if (element.title==='Default'){exisitngProject.selected = true}
-                // selectProjectBtn.appendChild(exisitngProject)})})
-        // if (element.title==='Default'){exisitngProject.selected = true}
-
+        // selectProjectBtn.addEventListener('click', Page.updateSelectOptions)
         selectProjectBtn.addEventListener('change', Page.displayProject) 
-        selectProjectBtn.addEventListener('change', (e)=>{console.log(e)}) 
+
+        // selectProjectBtn.addEventListener('change', (e)=>{console.log(e)}) 
            
         
         sidebar.appendChild(selectProjectBtn)
@@ -86,10 +98,10 @@ class Page{
 
     }
 
-    updateSelectOptions(){
-         let options = Project.all
-         const selectProjectBtn = document.getElementById('projects-select')
-         console.log(options)
+    static updateSelectOptions(){
+        let options = Project.all
+        const selectProjectBtn = document.getElementById('projects-select')
+        console.log(options)
 
         while (selectProjectBtn.firstChild) {
         selectProjectBtn.removeChild(selectProjectBtn.firstChild);
@@ -99,8 +111,14 @@ class Page{
         const exisitngProject = document.createElement('option')
         exisitngProject.value = element.title
         exisitngProject.textContent = element.title
+        let selectedProject = document.getElementsByClassName('project')[0]
+        try {if (selectedProject =! undefined && element.title == selectedProject.textContent){
+            exisitngProject.selected = true
+        }}
+        catch{}
 
         selectProjectBtn.appendChild(exisitngProject)})
+
     }
 
 
@@ -183,6 +201,7 @@ function editProjectTitle(){
         Project.editProjectTitle(oldTitle, newProjectTitle.value)
         console.log(Project.all)
         newProjectTitle.remove()
+        Page.updateSelectOptions()
         }
     })
     // Page.clearMainContent()

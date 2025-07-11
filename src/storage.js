@@ -1,9 +1,9 @@
 import {Project} from './project.js'
 
 
-function saveData(project){
+function saveData(){
     localStorage.clear()
-    project.forEach((element) => {
+    Project.all.forEach((element) => {
         let saveData = JSON.stringify(element)
         localStorage.setItem(element.title, saveData)   
     });
@@ -26,8 +26,8 @@ function loadData(){
         //  create object
         let title = dataToLoad.title
         let project = Project.createProject(title)
-        project.todos = []
-        project.id = dataToLoad.id
+        // project.todos = []
+        // project.id = dataToLoad.id
     }
 }
 
@@ -36,6 +36,7 @@ function loadData(){
 // }
 
 loadData()
+console.log(Project.all)
 
 
 
