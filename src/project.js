@@ -16,8 +16,7 @@ class Project {
             let newProject = new Project(title)
             // Page.updateSelectOptions()
             
-            // return 
-            
+            return newProject
         }
         else {
            console.log('Project name is taken')

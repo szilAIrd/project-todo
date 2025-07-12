@@ -16,6 +16,7 @@ class Todo{
         // checkList;
         this.statusFinished = ''
         // false
+        this.id = crypto.randomUUID()
     }
 
     // createItem(){} creating 

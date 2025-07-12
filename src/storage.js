@@ -26,7 +26,8 @@ function loadData(){
         //  create object
         let title = dataToLoad.title
         let project = Project.createProject(title)
-        // project.todos = []
+        
+        // project.todos = dataToLoad.todos
         // project.id = dataToLoad.id
     }
 }

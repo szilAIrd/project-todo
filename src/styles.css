@@ -26,3 +26,10 @@ body{
     color: white;
 }
 
+#maincontent{
+    display: grid;
+}
+
+input{
+    height: 15px;
+}

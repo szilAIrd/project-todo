@@ -27,7 +27,7 @@ class Page{
         addTodoBtn.id = 'add-todo-btn';
         addTodoBtn.textContent = 'Add Todo'
         addTodoBtn.addEventListener('click', ()=> {
-                const newTodo = Todo.createTodo('new todo'); 
+                let newTodo = Todo.createTodo('new todo'); 
                 console.log(newTodo); 
                 //  Add todo to currently displayed project
                 // Get name of the currently displayed project from DOM, i.e.'Default'
@@ -36,9 +36,11 @@ class Page{
                 let selectedProjectTitle = selectedProject.textContent
                 let selectedProjectIdx = Project.all.findIndex((element) => (element.title==selectedProjectTitle))
                 // Add todo to selecte project
-                Project.all[selectedProjectIdx]
+                let project = Project.all[selectedProjectIdx]
+                project.addTodo(newTodo)
                 // defaultProject.addTodo(newTodo)
-                console.log(defaultProject)
+                console.log(Project.all)
+                // displayTodo()
             })
         sidebar.appendChild(addTodoBtn)
 
@@ -134,14 +136,24 @@ class Page{
         let selectedProject = Project.all.find((element) => element.title == selectProjectBtn.value)
         project.textContent = selectedProject.title
         project.addEventListener('dblclick', editProjectTitle)
+        // Display all the todos the selected project contains in its todos array
+        
+
         maincontent.appendChild(project) 
+        for (let i=0;i<selectedProject.todos.length;i++)
+            {
+                displayTodo(selectedProject.todos[i])
+            }   
     }
 
     static clearMainContent(){
         const maincontent = document.getElementById('maincontent')
+        const children = maincontent.children
+
         if (maincontent.childElementCount>0){
-            const children = maincontent.children
-            maincontent.removeChild(children[0])
+            while (maincontent.childElementCount>0){
+                maincontent.removeChild(maincontent.firstChild)
+            }
         }
     }
 }
@@ -178,6 +190,29 @@ function displayProjectsSelector(){
     addProject.textContent = 'new project'
     selectProjectBtn.appendChild(addProject)
 }
+
+function displayTodo(todo){
+    let maincontent = document.getElementById('maincontent')
+    // let project = document.getElementsByClassName('project')[0]
+    let todoInput = document.createElement('input')
+    let todoLabel = document.createElement('label')
+    let todoElement = document.createElement('div')
+    todoElement.id = todo.id
+
+    todoLabel.textContent = todo.title
+    todoLabel.for = todo.title.toLowerCase()
+    todoInput.type = 'checkbox'
+    todoInput.id = todoLabel.for
+    todoInput.value = todoInput.id
+    todoInput.name = 'project'
+
+    todoElement.id = todo.id
+    todoElement.appendChild(todoInput)
+    todoElement.appendChild(todoLabel)
+    maincontent.appendChild(todoElement)
+    
+}
+
 
 function editProjectTitle(){
     const maincontent = document.getElementById('maincontent')
