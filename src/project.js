@@ -53,9 +53,9 @@ function createProject(){
     return newProject
 }
 
-let defaultProject = new Project('Default')
+// let defaultProject = new Project('Default')
 // console.log(['The default project is', defaultProject])
 // let Project1 = new Project('Project1')
 
 
-export { Project, defaultProject, createProject}
+export { Project, createProject}

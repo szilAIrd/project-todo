@@ -1,4 +1,5 @@
 import {Project} from './project.js'
+import {Todo} from './todo.js'
 
 
 function saveData(){
@@ -24,9 +25,21 @@ function loadData(){
         // Iterate through the elements of localStorage and create objects
         let dataToLoad = loadProjectEntry(localStorage.key(i))
         //  create object
+        let Todos = dataToLoad.todos
         let title = dataToLoad.title
         let project = Project.createProject(title)
-        
+        if (Todos!=[]){
+        for (let i=0;i<Todos.length; i++){
+            project.todos.push(loadTodos(Todos[i]))
+        }
+        }
+        function loadTodos(todoToLoad){
+            let loadTodo = Todo.createTodo(todoToLoad.title)
+            loadTodo.id = todoToLoad.id
+            return loadTodo
+
+        }
+        // project.todos = 
         // project.todos = dataToLoad.todos
         // project.id = dataToLoad.id
     }
