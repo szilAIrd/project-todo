@@ -38,7 +38,8 @@ class Page{
                 // Add todo to selecte project
                 let project = Project.all[selectedProjectIdx]
                 project.addTodo(newTodo)
-                
+
+                Page.displayProject()
                 // defaultProject.addTodo(newTodo)
                 console.log(Project.all)
                 // displayTodo()
