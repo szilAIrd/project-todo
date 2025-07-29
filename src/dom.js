@@ -38,6 +38,7 @@ class Page{
                 // Add todo to selecte project
                 let project = Project.all[selectedProjectIdx]
                 project.addTodo(newTodo)
+                
                 // defaultProject.addTodo(newTodo)
                 console.log(Project.all)
                 // displayTodo()
@@ -76,6 +77,10 @@ class Page{
         sidebar.appendChild(saveProjectBtn)
 
         // SELECT PROJECT
+        const selectProjectLabel = document.createElement('label')
+        selectProjectLabel.id = 'select-label'
+        selectProjectLabel.for = 'projects-select'
+        selectProjectLabel.textContent = 'Select a project'
         const selectProjectBtn = document.createElement('select')
         selectProjectBtn.name = 'projects-select';
         selectProjectBtn.id = 'projects-select';
@@ -84,7 +89,7 @@ class Page{
 
         // selectProjectBtn.addEventListener('change', (e)=>{console.log(e)}) 
            
-        
+        sidebar.appendChild(selectProjectLabel)
         sidebar.appendChild(selectProjectBtn)
 
         
@@ -206,7 +211,9 @@ function displayTodo(todo){
     todoInput.value = todoInput.id
     todoInput.name = 'project'
 
+
     todoElement.id = todo.id
+    todoElement.classList = 'todo'
     todoElement.appendChild(todoInput)
     todoElement.appendChild(todoLabel)
     maincontent.appendChild(todoElement)

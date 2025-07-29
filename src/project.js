@@ -24,7 +24,7 @@ class Project {
     }
 
     static deleteProject(title){
-        let projectID = (Project.all.find((element)=>(element.title)==title))
+        let projectID = Project.all.findIndex((element)=>(element.title)==title)
         if (projectID!=undefined){
             Project.all.splice(projectID,1)
             console.log(Project.all)
