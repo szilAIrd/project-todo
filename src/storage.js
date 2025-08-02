@@ -36,6 +36,10 @@ function loadData(){
         function loadTodos(todoToLoad){
             let loadTodo = Todo.createTodo(todoToLoad.title)
             loadTodo.id = todoToLoad.id
+            loadTodo.dueDate = todoToLoad.dueDate
+            loadTodo.statusFinished = todoToLoad.statusFinished
+            loadTodo.priority = todoToLoad.priority
+            loadTodo.note = todoToLoad.note
             return loadTodo
 
         }

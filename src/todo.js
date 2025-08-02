@@ -8,9 +8,9 @@ class Todo{
         this.description = '';
         this.dueDate = ''
         // dueDate;
-        this.priority = '' 
+        this.priority 
         // priority;
-        this.notes = ''
+        this.note
         // notes;
         this.checkList =  ''
         // checkList;

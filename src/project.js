@@ -22,7 +22,7 @@ class Project {
            console.log('Project name is taken')
         }
     }
-
+    
     static deleteProject(title){
         let projectID = Project.all.findIndex((element)=>(element.title)==title)
         if (projectID!=undefined){

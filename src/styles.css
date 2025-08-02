@@ -42,7 +42,8 @@ button, #add-todo-btn, #add-project-btn, #display-project-btn, select{
 
 #maincontent{
     display: grid;
-    grid-template-rows: 100px repeat(auto-fill, 50px);
+    /* grid-template-rows: 100px repeat(auto-fill, 50px); */
+    gap: 20px;
 }
 
 input{
@@ -53,6 +54,22 @@ input{
     font-size: xx-large;
 }
 
-.todo{
+.todo-checkbox {
+width: 16px;
+}
 
+.todo{
+    width: 400px;
+    height: 200px;
+display: grid;
+grid-template-rows: auto;
+gap: 5px;
+}
+
+label{
+    width: min-content;
+}
+
+input[type="date"] {
+    width: 120px;
 }

@@ -201,22 +201,136 @@ function displayTodo(todo){
     let maincontent = document.getElementById('maincontent')
     // let project = document.getElementsByClassName('project')[0]
     let todoInput = document.createElement('input')
+    
+    todoInput.addEventListener('input', (e) => {
+        let currentProject = document.getElementsByClassName('project')[0].textContent
+        let project = Project.all.find(element => element.title == currentProject)
+        let todoId = e.currentTarget.parentElement.id
+        let currentTodo = project.todos.find(element => element.id == todoId)
+        currentTodo.statusFinished = e.currentTarget.checked
+        console.log(currentTodo)
+    })
+    todoInput.className = 'todo-checkbox'
     let todoLabel = document.createElement('label')
     let todoElement = document.createElement('div')
+    let todoDueDate = document.createElement('input')
+    let todoSetPrio = document.createElement('select')
+    let todoSetPrioOption1 = document.createElement('option')
+    todoSetPrioOption1.textContent = 1
+    todoSetPrioOption1.value = 1
+    if (todo.priority == todoSetPrioOption1.value){
+        todoSetPrioOption1.selected=true
+    }
+    let todoSetPrioOption2 = document.createElement('option')
+    todoSetPrioOption2.textContent = 2
+    todoSetPrioOption2.value = 2
+    if (todo.priority == todoSetPrioOption2.value){
+        todoSetPrioOption2.selected=true
+    }
+    let todoSetPrioOption3 = document.createElement('option')
+    todoSetPrioOption3.textContent = 3
+    todoSetPrioOption3.value = 3
+    if (todo.priority == todoSetPrioOption3.value){
+        todoSetPrioOption3.selected=true
+    }
+    let todoSetPrioOption4 = document.createElement('option')
+    todoSetPrioOption4.textContent = 4
+    todoSetPrioOption4.value = 4
+    if (todo.priority == todoSetPrioOption4.value){
+        todoSetPrioOption4.selected=true
+    }
+
+    
+
+    todoSetPrio.addEventListener('input', (e) =>{
+        // Take prio value from UI element and set background color 
+        let todo = e.currentTarget.parentElement.children[1]
+        todo.style.backgroundColor = setPrioColor(e.currentTarget.value)
+        
+        
+        // Pass prio value to todo object
+        let currentProject = document.getElementsByClassName('project')[0].textContent
+        let project = Project.all.find(element => element.title == currentProject)
+        let todoId = e.currentTarget.parentElement.id
+        let currentTodo = project.todos.find(element => element.id == todoId)
+        currentTodo.priority = e.currentTarget.value
+    })
+
+    todoSetPrio.appendChild(todoSetPrioOption1)
+    todoSetPrio.appendChild(todoSetPrioOption2)
+    todoSetPrio.appendChild(todoSetPrioOption3)
+    todoSetPrio.appendChild(todoSetPrioOption4)
+
+    todoDueDate.type = 'date'
+    todoDueDate.addEventListener('input', (e)=> {
+        // take the input from the dom element and set the value in the todo item
+        let currentProject = document.getElementsByClassName('project')[0].textContent
+        let project = Project.all.find(element => element.title == currentProject)
+        let todoId = e.currentTarget.parentElement.id
+        let currentTodo = project.todos.find(element => element.id == todoId)
+        currentTodo.dueDate = e.currentTarget.value
+        console.log(currentTodo)
+    })
+    
     todoElement.id = todo.id
+
+    let todoNotes = document.createElement('textarea')
+    todoNotes.rows = 4
+    todoNotes.cols = 20
+    todoNotes.textContent = todo.note
+    todoNotes.placeholder = 'Add notes'
+    todoNotes.addEventListener('keydown',(e)=>{
+        if (e.key === 'Enter') {
+        let currentProject = document.getElementsByClassName('project')[0].textContent
+        let project = Project.all.find(element => element.title == currentProject)
+        let todoId = e.currentTarget.parentElement.id
+        let currentTodo = project.todos.find(element => element.id == todoId)
+        currentTodo.note = e.currentTarget.value
+        console.log(currentTodo)
+        }
+    })
+
 
     todoLabel.textContent = todo.title
     todoLabel.for = todo.title.toLowerCase()
+    todoLabel.addEventListener('dblclick',editTodoTitle)
     todoInput.type = 'checkbox'
     todoInput.id = todoLabel.for
     todoInput.value = todoInput.id
-    todoInput.name = 'project'
-
-
+    todoDueDate.value = todo.dueDate
+    // Set todo element background color accoridng to priority defined by Eisenhower matrix *
+    // .q1 { background-color: #e74c3c; }  /* Urgent + Important */
+    // .q2 { background-color: #27ae60; }  /* Not Urgent + Important */
+    // .q3 { background-color: #f1c40f; }  /* Urgent + Not Important */
+    // .q4 { background-color: #95a5a6; }  /* Not Urgent + Not Important */
+    function setPrioColor(priority){
+        let color
+        if(priority == 1){
+            color = '#e74c3c' 
+        }
+        else if(priority == 2){
+            color = '#27ae60' 
+        }
+        else if(priority == 3){
+            color = '#f1c40f' 
+        }
+        else if(priority == 4){
+            color = '#95a5a6' 
+        }
+        else{}
+        return color
+    }
+    todoLabel.style.backgroundColor = setPrioColor(todo.priority)
+    
+    todoInput.checked = todo.statusFinished
     todoElement.id = todo.id
     todoElement.classList = 'todo'
     todoElement.appendChild(todoInput)
     todoElement.appendChild(todoLabel)
+    todoElement.appendChild(todoDueDate)
+    todoElement.appendChild(todoSetPrio)
+    todoElement.appendChild(todoNotes)
+
     maincontent.appendChild(todoElement)
     
 }
@@ -252,6 +366,48 @@ function editProjectTitle(){
     maincontent.appendChild(newProjectTitle)
 }
 
-    // displayTodo
+function editTodoTitle(e){
+    const maincontent = document.getElementById('maincontent')
+    let todoTitle = e.currentTarget
+    todoTitle.style.display = 'none'
+    let todoId = e.currentTarget.parentElement.id
+    // change todo html element text content: 
+    // 1) remove label dom element and add input, when clicked enter add label back with the text input
+    // 2) trigger todo object title change: id needed, it can be obtained from the label parent element
+    // let currentTodoTitle = projectTitle.value;
+    let newTodoTitle = document.createElement('input')
+    newTodoTitle.id = 'newTodoTitle'
+    newTodoTitle.placeholder = 'Add new todo name'
+
+    newTodoTitle.addEventListener('keydown', function (e){
+        if (e.key === 'Enter'){
+            todoTitle.textContent = newTodoTitle.value;
+            todoTitle.style.display = ''
+            parentElement.removeChild(newTodoTitle)
+            // trigger change in project objects todo object
+            // find the todo based on id
+            let projectTitle  = document.getElementsByClassName('project')[0].textContent
+            // invoke the functionality: but pass only the id and the new name
+            let relProject = (Project.all.find(element => element.title == projectTitle))
+            // Project.all()
+            // let relProject = Project.all[projectIdx]
+            let relTodo = relProject.todos.find(element => element.id == todoId)
+            relTodo.title = todoTitle.textContent
+            console.log(Project.all)
+        }
+        
+
+}
+
+    )
+
+    let parentElement = e.currentTarget.parentElement
+    // parentElement.appendChild(newTodoTitle)
+    parentElement.insertBefore(newTodoTitle, parentElement.children[1])
+
+
+}
+
+
 
 export {DomTodo, Page}
