@@ -260,6 +260,7 @@ function displayTodo(todo){
     todoSetPrio.appendChild(todoSetPrioOption2)
     todoSetPrio.appendChild(todoSetPrioOption3)
     todoSetPrio.appendChild(todoSetPrioOption4)
+    todoSetPrio.style.display = 'none'
 
     todoDueDate.type = 'date'
     todoDueDate.addEventListener('input', (e)=> {
@@ -289,6 +290,7 @@ function displayTodo(todo){
         console.log(currentTodo)
         }
     })
+    todoNotes.style.display = 'none'
 
 
     todoLabel.textContent = todo.title
@@ -321,6 +323,23 @@ function displayTodo(todo){
         return color
     }
     todoLabel.style.backgroundColor = setPrioColor(todo.priority)
+
+    let todoShow = document.createElement('div')
+    todoShow.textContent = 'show'
+    todoShow.className = 'todo-show'
+    todoShow.addEventListener('click',e =>{
+        if (e.currentTarget.textContent=='hide'){
+            e.currentTarget.parentElement.children[4].style.display='none'
+            e.currentTarget.parentElement.children[5].style.display='none'
+            e.currentTarget.textContent='show'}
+        else if (e.currentTarget.textContent=='show'){
+            e.currentTarget.parentElement.children[4].style.display='block'
+            e.currentTarget.parentElement.children[5].style.display='block'
+            e.currentTarget.textContent='hide'}
+        else{}
+        
+    })
+
     
     todoInput.checked = todo.statusFinished
     todoElement.id = todo.id
@@ -330,6 +349,7 @@ function displayTodo(todo){
     todoElement.appendChild(todoDueDate)
     todoElement.appendChild(todoSetPrio)
     todoElement.appendChild(todoNotes)
+    todoElement.insertBefore(todoShow,todoElement.children[2])
 
     maincontent.appendChild(todoElement)
     
